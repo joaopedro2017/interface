@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import model.Cidade;
 
 
 /**
@@ -26,7 +27,7 @@ public class FrmCliente extends javax.swing.JDialog {
     /**
      * Creates new form Cliente
      */
-    public FrmCliente(java.awt.Frame parent, boolean modal) {        
+    public FrmCliente(java.awt.Frame parent, boolean modal) {    
         super(parent, modal);        
         initComponents();        
         setLocationRelativeTo(null);
@@ -56,6 +57,8 @@ public class FrmCliente extends javax.swing.JDialog {
         txtCep = new javax.swing.JFormattedTextField();
         comboEstado = new javax.swing.JComboBox<>();
         comboCidade = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         barraRolagem = new javax.swing.JScrollPane();
         txtObservacao = new javax.swing.JTextArea();
         lblComandos = new javax.swing.JLabel();
@@ -77,6 +80,7 @@ public class FrmCliente extends javax.swing.JDialog {
 
         txtCodigo.setEditable(false);
         txtCodigo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Código", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
+        txtCodigo.setDisabledTextColor(new java.awt.Color(204, 204, 204));
 
         txtNome.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nome", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
 
@@ -160,6 +164,10 @@ public class FrmCliente extends javax.swing.JDialog {
 
         comboCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cidade" }));
 
+        jLabel1.setText("Estado:");
+
+        jLabel2.setText("Cidade:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -168,8 +176,13 @@ public class FrmCliente extends javax.swing.JDialog {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,10 +212,13 @@ public class FrmCliente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
+        barraRolagem.setBackground(new java.awt.Color(255, 255, 255));
         barraRolagem.setBorder(javax.swing.BorderFactory.createTitledBorder("Observação"));
         barraRolagem.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         barraRolagem.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -406,12 +422,13 @@ public class FrmCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btmNovoActionPerformed
 
     private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
-        //DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        DefaultComboBoxModel modelo2 = new DefaultComboBoxModel();        
-        String cidade = (String) comboEstado.getSelectedItem();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();        
+        String estado = (String) comboEstado.getSelectedItem();      
+        
         Cidade c1 = new Cidade();
         Cidade c2 = new Cidade();
-        switch(cidade){
+        Cidade c3 = new Cidade();
+        switch(estado){
             case "MG":               
                 c1.setNome("Juiz de Fora");
                 c1.setId(1);              
@@ -419,53 +436,52 @@ public class FrmCliente extends javax.swing.JDialog {
                 c2.setNome("Belo Horizonte");
                 c2.setId(2);
                 
-                modelo2.addElement( c1.getNome() );
-                modelo2.addElement( c2.getNome() );
-                comboCidade.setModel(modelo2);                
-                break;
-            case "SP":
-                Cidade c3 = new Cidade();
-                c3.setNome("Itaí");
+                c3.setNome("Uberlândia");
                 c3.setId(3);
                 
-                Cidade c4 = new Cidade();
-                c4.setNome("São Paulo");
-                c4.setId(4);
+                modelo.addElement(c1);
+                modelo.addElement(c2);
+                modelo.addElement(c3);
+                comboCidade.setModel(modelo);                
+                break;
+            case "SP":
                 
-                modelo2.addElement(c3);
-                modelo2.addElement(c4);
-                comboCidade.setModel(modelo2);
+                c1.setNome("Itaí");
+                c1.setId(1);
+                
+                
+                c2.setNome("São Paulo");
+                c2.setId(2);
+                
+                c3.setNome("Santos");
+                c3.setId(3);
+                
+                modelo.addElement(c1);
+                modelo.addElement(c2);
+                modelo.addElement(c3);
+                comboCidade.setModel(modelo);
                 break;
             case "RJ":
-                Cidade c5 = new Cidade();
-                c5.setNome("Rio de Janeiro");
-                c5.setId(5);
                 
-                Cidade c6 = new Cidade();
-                c6.setNome("Três Rios");
-                c6.setId(6);
+                c1.setNome("Rio de Janeiro");
+                c1.setId(5);
                 
-                modelo2.addElement(c5);
-                modelo2.addElement(c6);
-                comboCidade.setModel(modelo2);
+                c2.setNome("Três Rios");
+                c2.setId(6);
+                
+                c3.setNome("Cabo Frio");
+                c3.setId(3);
+                
+                modelo.addElement(c1);
+                modelo.addElement(c2);
+                modelo.addElement(c3);                
+                comboCidade.setModel(modelo);
             break;
             default:
-                modelo2.addElement("Selecione o Estado");        
-                comboCidade.setModel(modelo2);
+                modelo.addElement("Selecione o Estado");        
+                comboCidade.setModel(modelo);
                 break;                
         }
-        
-        /*
-        if(comboEstado.getSelectedItem().equals("MG")){            
-            modelo2.addElement("Juiz de Fora");        
-            comboCidade.setModel(modelo2);
-        }else if(comboEstado.getSelectedItem().equals("SP")){
-            modelo2.addElement("Sao Paulo");        
-            comboCidade.setModel(modelo2);
-        }else if(comboEstado.getSelectedItem().equals("RJ")){
-            modelo2.addElement("Rio de Janeiro");        
-            comboCidade.setModel(modelo2);
-        }*/       
     }//GEN-LAST:event_comboEstadoActionPerformed
 
     private void btmSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSalvarActionPerformed
@@ -641,6 +657,8 @@ public class FrmCliente extends javax.swing.JDialog {
     private javax.swing.JButton btmUltimo;
     private javax.swing.JComboBox<String> comboCidade;
     private javax.swing.JComboBox<String> comboEstado;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblComandos;
