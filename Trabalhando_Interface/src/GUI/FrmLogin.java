@@ -5,8 +5,16 @@
  */
 package GUI;
 
+import com.jgoodies.looks.plastic.PlasticLookAndFeel;
+import com.jgoodies.looks.plastic.theme.ExperienceRoyale;
 import dao.UsuarioDao;
+import java.awt.SystemColor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -20,6 +28,7 @@ public class FrmLogin extends javax.swing.JDialog {
     public FrmLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        alterarTema();
     }
 
     /**
@@ -176,4 +185,22 @@ public class FrmLogin extends javax.swing.JDialog {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
+
+private void alterarTema(){
+        try {
+            PlasticLookAndFeel.setPlasticTheme(new ExperienceRoyale());
+            try {
+                UIManager.setLookAndFeel("com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
+            } catch (InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                Logger.getLogger(this.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        SwingUtilities.updateComponentTreeUI(this);
+
+        setBackground(SystemColor.BLUE);
+    }
 }
