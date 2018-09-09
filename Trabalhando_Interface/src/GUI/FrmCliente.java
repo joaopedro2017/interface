@@ -235,6 +235,7 @@ public class FrmCliente extends javax.swing.JDialog {
         lblComandos.setOpaque(true);
 
         btmSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar.gif"))); // NOI18N
+        btmSalvar.setMnemonic('S');
         btmSalvar.setText("Salvar");
         btmSalvar.setToolTipText("Salvar");
         btmSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -244,6 +245,7 @@ public class FrmCliente extends javax.swing.JDialog {
         });
 
         btmAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/atualiza.jpg"))); // NOI18N
+        btmAlterar.setMnemonic('A');
         btmAlterar.setText("Alterar");
         btmAlterar.setToolTipText("Alterar");
         btmAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -253,6 +255,7 @@ public class FrmCliente extends javax.swing.JDialog {
         });
 
         btmExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/DEL.jpg"))); // NOI18N
+        btmExcluir.setMnemonic('x');
         btmExcluir.setText("Excluir");
         btmExcluir.setToolTipText("Excluir");
         btmExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -298,6 +301,7 @@ public class FrmCliente extends javax.swing.JDialog {
         });
 
         btmSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/sair.gif"))); // NOI18N
+        btmSair.setMnemonic('r');
         btmSair.setText("Sair");
         btmSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,6 +310,7 @@ public class FrmCliente extends javax.swing.JDialog {
         });
 
         btmNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo.jpg"))); // NOI18N
+        btmNovo.setMnemonic('N');
         btmNovo.setText("Novo");
         btmNovo.setToolTipText("Novo");
         btmNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -522,7 +527,7 @@ public class FrmCliente extends javax.swing.JDialog {
             btmProximo.setEnabled(true);
             btmAnterior.setEnabled(true);
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro!");
+            JOptionPane.showMessageDialog(null, "Nenhum Cliente Cadastrado!");
         }
     }//GEN-LAST:event_btmPrimeiroActionPerformed
 
@@ -554,7 +559,7 @@ public class FrmCliente extends javax.swing.JDialog {
             btmAnterior.setEnabled(true);
             btmProximo.setEnabled(true);
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro!");
+            JOptionPane.showMessageDialog(null, "Nenhum Cliente Cadastrado!");
         }
     }//GEN-LAST:event_btmUltimoActionPerformed
   

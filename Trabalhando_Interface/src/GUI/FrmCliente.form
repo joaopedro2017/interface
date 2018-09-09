@@ -440,6 +440,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/icones/salvar.gif"/>
         </Property>
+        <Property name="mnemonic" type="int" value="83"/>
         <Property name="text" type="java.lang.String" value="Salvar"/>
         <Property name="toolTipText" type="java.lang.String" value="Salvar"/>
       </Properties>
@@ -452,6 +453,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/icones/atualiza.jpg"/>
         </Property>
+        <Property name="mnemonic" type="int" value="65"/>
         <Property name="text" type="java.lang.String" value="Alterar"/>
         <Property name="toolTipText" type="java.lang.String" value="Alterar"/>
       </Properties>
@@ -464,6 +466,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/icones/DEL.jpg"/>
         </Property>
+        <Property name="mnemonic" type="int" value="120"/>
         <Property name="text" type="java.lang.String" value="Excluir"/>
         <Property name="toolTipText" type="java.lang.String" value="Excluir"/>
       </Properties>
@@ -516,6 +519,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/icones/sair.gif"/>
         </Property>
+        <Property name="mnemonic" type="int" value="114"/>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
       <Events>
@@ -527,6 +531,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/icones/novo.jpg"/>
         </Property>
+        <Property name="mnemonic" type="int" value="78"/>
         <Property name="text" type="java.lang.String" value="Novo"/>
         <Property name="toolTipText" type="java.lang.String" value="Novo"/>
       </Properties>

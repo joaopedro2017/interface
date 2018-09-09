@@ -76,8 +76,9 @@ public class ClienteDao {
                 cliente.setEstado( rs.getString("cli_estado") );
                 cliente.setCidade( rs.getString("cli_cidade") );
                 lista.add(cliente);
-            }           
-            return lista;           
+            } 
+            stmt.close();
+            return lista;            
         }catch(SQLException erro){
             throw new RuntimeException(erro);            
         }   
@@ -87,8 +88,7 @@ public class ClienteDao {
         try{
             String cmdsql = "update cliente set cli_nome=?, cli_email=?, cli_telefone=?, cli_celular=?, cli_rua=?, "+
                     "cli_numero=?, cli_complemento=?, cli_bairro=?, cli_cep=?, cli_estado=?, cli_cidade=? "+ 
-                    "where cli_codigo=?";
-            //String cmdsql = "update produto set pro_nome=?, pro_descricao=?, pro_preco=? where cli_codigo = ?";
+                    "where cli_codigo=?";            
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setString(1, obj.getNome());
