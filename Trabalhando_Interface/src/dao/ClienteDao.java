@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import jdbc.ConectionFactory;
@@ -53,15 +54,18 @@ public class ClienteDao {
         }    
     }
     
-    public List<Cliente> consultarCliente(){
+    public Cliente consultarCliente(){
         try{  
-            List<Cliente> lista = new ArrayList<Cliente>();
+            //List<Cliente> lista = new ArrayList<Cliente>();
             String Sql = "select * from cliente";
-            PreparedStatement stmt = conecta.prepareStatement(Sql);
-                      
-            ResultSet rs = stmt.executeQuery();          
+            Statement stmt =
+                    conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);          
             
-            while(rs.next()){
+            ResultSet rs = stmt.executeQuery( Sql);
+            rs.beforeFirst();
+            
+            //while(rs.next()){
                 Cliente cliente = new Cliente();
                 cliente.setCodigo(rs.getInt("cli_codigo") );
                 cliente.setNome( rs.getString("cli_nome") );
@@ -75,10 +79,10 @@ public class ClienteDao {
                 cliente.setCep( rs.getString("cli_cep") );
                 cliente.setEstado( rs.getString("cli_estado") );
                 cliente.setCidade( rs.getString("cli_cidade") );
-                lista.add(cliente);
-            } 
+                //lista.add(cliente);
+            //} 
             stmt.close();
-            return lista;            
+            return cliente;            
         }catch(SQLException erro){
             throw new RuntimeException(erro);            
         }   

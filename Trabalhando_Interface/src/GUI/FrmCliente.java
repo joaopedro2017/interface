@@ -20,8 +20,8 @@ import model.Cidade;
  */
 public class FrmCliente extends javax.swing.JDialog {
     
-    ClienteDao dao;
-    List<Cliente> lista;
+    
+    //List<Cliente> lista;
     int contId;   
 
     /**
@@ -392,7 +392,7 @@ public class FrmCliente extends javax.swing.JDialog {
     private void btmProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmProximoActionPerformed
         try{ 
             contId++;
-            Cliente cliente = lista.get(contId);
+            Cliente cliente = dao.consultarCliente();
             exibirCliente(cliente);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Último Cliente!");
@@ -493,7 +493,7 @@ public class FrmCliente extends javax.swing.JDialog {
         try{
             Cliente cliente = new Cliente();
             preencherCliente(cliente);            
-            
+            ClienteDao dao;
             dao = new ClienteDao();        
             dao.cadastrarCliente(cliente);
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com Sucesso!");
@@ -518,12 +518,13 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmPrimeiroActionPerformed
         try{
+            ClienteDao dao;
             dao = new ClienteDao();
-            lista = dao.consultarCliente();
+            //lista = dao.consultarCliente();
             
-            Cliente cliente = lista.get(0);
+            Cliente cliente = dao.consultarCliente();
             exibirCliente(cliente);             
-            contId = 0;
+            //contId = 0;
             btmProximo.setEnabled(true);
             btmAnterior.setEnabled(true);
         }catch(Exception e){
@@ -549,13 +550,14 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmUltimoActionPerformed
         try{
+            ClienteDao dao;
             dao = new ClienteDao();
-            lista = dao.consultarCliente();
+            //lista = dao.consultarCliente();
             
-            Cliente cliente = lista.get( lista.size() - 1 );
+            Cliente cliente = dao.consultarCliente();
 
             exibirCliente(cliente);
-            contId = lista.size() - 1;
+            //contId = lista.size() - 1;
             btmAnterior.setEnabled(true);
             btmProximo.setEnabled(true);
         }catch(Exception e){
@@ -565,8 +567,10 @@ public class FrmCliente extends javax.swing.JDialog {
   
     private void btmAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAnteriorActionPerformed
         try{
-            contId--;
-            Cliente cliente = lista.get( contId );
+            //contId--;
+            ClienteDao dao;
+            dao = new ClienteDao();
+            Cliente cliente = dao.consultarCliente();
             exibirCliente(cliente);
                         
         }catch(Exception e){
@@ -576,6 +580,8 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAlterarActionPerformed
         try{
+            ClienteDao dao;
+            dao = new ClienteDao();
             Cliente cliente = new Cliente();
             cliente.setCodigo(Integer.parseInt(txtCodigo.getText()));
             preencherCliente(cliente);
