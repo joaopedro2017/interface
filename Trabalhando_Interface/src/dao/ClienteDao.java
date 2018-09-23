@@ -22,6 +22,7 @@ import model.Cliente;
 public class ClienteDao {
     
     private Connection conecta;
+    int atual = 0;
 
     public ClienteDao() {
         this.conecta = new ConectionFactory().conecta();
@@ -54,39 +55,24 @@ public class ClienteDao {
         }    
     }
     
-    public Cliente consultarCliente(){
-        try{  
-            //List<Cliente> lista = new ArrayList<Cliente>();
-            String Sql = "select * from cliente";
-            Statement stmt =
-                    conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);          
-            
-            ResultSet rs = stmt.executeQuery( Sql);
-            rs.beforeFirst();
-            
-            //while(rs.next()){
-                Cliente cliente = new Cliente();
-                cliente.setCodigo(rs.getInt("cli_codigo") );
-                cliente.setNome( rs.getString("cli_nome") );
-                cliente.setEmail( rs.getString("cli_email") );
-                cliente.setTelefone( rs.getString("cli_telefone") );
-                cliente.setCelular( rs.getString("cli_celular") );
-                cliente.setRua( rs.getString("cli_rua") );
-                cliente.setNumero( rs.getString("cli_numero") );
-                cliente.setComplento( rs.getString("cli_complemento") );
-                cliente.setBairro( rs.getString("cli_bairro") );
-                cliente.setCep( rs.getString("cli_cep") );
-                cliente.setEstado( rs.getString("cli_estado") );
-                cliente.setCidade( rs.getString("cli_cidade") );
-                //lista.add(cliente);
-            //} 
-            stmt.close();
-            return cliente;            
-        }catch(SQLException erro){
-            throw new RuntimeException(erro);            
-        }   
-    } 
+    private Cliente carregaDados(ResultSet rs, Statement stmt) throws SQLException {
+        Cliente cliente = new Cliente();
+        cliente.setCodigo(rs.getInt("cli_codigo") );
+        cliente.setNome( rs.getString("cli_nome") );
+        cliente.setEmail( rs.getString("cli_email") );
+        cliente.setTelefone( rs.getString("cli_telefone") );
+        cliente.setCelular( rs.getString("cli_celular") );
+        cliente.setRua( rs.getString("cli_rua") );
+        cliente.setNumero( rs.getString("cli_numero") );
+        cliente.setComplento( rs.getString("cli_complemento") );
+        cliente.setBairro( rs.getString("cli_bairro") );
+        cliente.setCep( rs.getString("cli_cep") );
+        cliente.setEstado( rs.getString("cli_estado") );
+        cliente.setCidade( rs.getString("cli_cidade") );
+        
+        stmt.close();
+        return cliente;
+    }
     
     public void alterarCliente(Cliente obj){
         try{
@@ -128,6 +114,69 @@ public class ClienteDao {
         }catch(SQLException erro){
             throw new RuntimeException(erro);
         }
+    }
+    
+    public Cliente primeiroRegistro() {                //METODO QUE CARREGA O ULTIMO REGISTRO DO BD
+        Cliente cliente = null;
+        try {
+            String Sql = "select * from cliente";
+            Statement stmt = conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);           
+            ResultSet rs = stmt.executeQuery( Sql);
+            rs.first();
+            
+            atual = rs.getConcurrency();
+            cliente = carregaDados(rs, stmt);
+        } catch (Exception e2) {
+            System.out.println("ERRO: "+e2.getMessage());
+        }  
+        return cliente;
+    }
+    public Cliente anteriorRegistro() {                //METODO QUE CARREGA O ULTIMO REGISTRO DO BD
+        Cliente cliente = null;
+        try {
+            String Sql = "select * from cliente";            
+            Statement stmt = conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
+            ResultSet rs = stmt.executeQuery( Sql);
+            
+            rs.clearWarnings();
+            if(!rs.first()){
+                rs.previous();
+            }
+            
+            cliente = carregaDados(rs, stmt);
+        } catch (Exception e2) {
+            System.out.println("ERRO: "+e2.getMessage());
+        } 
+        return cliente;
+    }
+    public Cliente proximoRegistro() {                //METODO QUE CARREGA O PROXIMO REGISTRO DO EM RELACAO A QUAL SE ESTA NO BD
+        Cliente cliente = null;
+        try {
+            String Sql = "select * from cliente";
+            Statement stmt = conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);           
+            ResultSet rs = stmt.executeQuery( Sql);
+            
+            if(!rs.isLast()){
+                rs.next();
+            }
+            cliente = carregaDados(rs, stmt);        
+        } catch (Exception e2) {
+            System.out.println("ERRO" + e2.getMessage());
+        } 
+        return cliente;
+    }
+    public Cliente ultimoRegistro() {                //METODO QUE CARREGA O ULTIMO REGISTRO DO BD
+        Cliente cliente = null;
+        try {
+            String Sql = "select * from cliente";
+            Statement stmt = conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);           
+            ResultSet rs = stmt.executeQuery( Sql);
+            rs.last();
+            cliente = carregaDados(rs, stmt);
+        } catch (Exception e2) {
+            System.out.println("ERRO: "+e2.getMessage());
+        }  
+        return cliente;
     }
     
 }

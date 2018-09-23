@@ -7,7 +7,6 @@ package GUI;
 
 import dao.ClienteDao;
 import java.awt.Color;
-import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Cliente;
@@ -19,10 +18,6 @@ import model.Cidade;
  * @author alunoces
  */
 public class FrmCliente extends javax.swing.JDialog {
-    
-    
-    //List<Cliente> lista;
-    int contId;   
 
     /**
      * Creates new form Cliente
@@ -92,11 +87,6 @@ public class FrmCliente extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCelular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCelularActionPerformed(evt);
-            }
-        });
 
         txtTelefone.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefone"));
         try {
@@ -275,7 +265,6 @@ public class FrmCliente extends javax.swing.JDialog {
 
         btmAnterior.setText("<");
         btmAnterior.setToolTipText("Anterior");
-        btmAnterior.setEnabled(false);
         btmAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmAnteriorActionPerformed(evt);
@@ -284,7 +273,6 @@ public class FrmCliente extends javax.swing.JDialog {
 
         btmProximo.setText(">");
         btmProximo.setToolTipText("Próximo");
-        btmProximo.setEnabled(false);
         btmProximo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmProximoActionPerformed(evt);
@@ -368,7 +356,7 @@ public class FrmCliente extends javax.swing.JDialog {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblComandos)
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -391,8 +379,9 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmProximoActionPerformed
         try{ 
-            contId++;
-            Cliente cliente = dao.consultarCliente();
+            btmNovoActionPerformed(evt);
+            ClienteDao dao = new ClienteDao();
+            Cliente cliente = dao.proximoRegistro();
             exibirCliente(cliente);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Último Cliente!");
@@ -420,8 +409,8 @@ public class FrmCliente extends javax.swing.JDialog {
         txtNumero.setText(" ");
         txtBairro.setText(" ");
         txtCep.setText(" ");
-        btmAnterior.setEnabled(false);
-        btmProximo.setEnabled(false);
+        //btmAnterior.setEnabled(false);
+        //btmProximo.setEnabled(false);
         //comboCidade.setSelectedItem("");
         //comboEstado.setSelectedItem("");        
     }//GEN-LAST:event_btmNovoActionPerformed
@@ -491,10 +480,10 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSalvarActionPerformed
         try{
+            ClienteDao dao = new ClienteDao();
             Cliente cliente = new Cliente();
-            preencherCliente(cliente);            
-            ClienteDao dao;
-            dao = new ClienteDao();        
+            preencherCliente(cliente);           
+                    
             dao.cadastrarCliente(cliente);
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com Sucesso!");
         }catch(Exception e){
@@ -517,14 +506,12 @@ public class FrmCliente extends javax.swing.JDialog {
     }    
 
     private void btmPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmPrimeiroActionPerformed
-        try{
-            ClienteDao dao;
-            dao = new ClienteDao();
-            //lista = dao.consultarCliente();
-            
-            Cliente cliente = dao.consultarCliente();
+         try{ 
+            btmNovoActionPerformed(evt);
+            ClienteDao dao = new ClienteDao();
+            Cliente cliente = dao.primeiroRegistro();
             exibirCliente(cliente);             
-            //contId = 0;
+            
             btmProximo.setEnabled(true);
             btmAnterior.setEnabled(true);
         }catch(Exception e){
@@ -550,14 +537,11 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmUltimoActionPerformed
         try{
-            ClienteDao dao;
-            dao = new ClienteDao();
-            //lista = dao.consultarCliente();
-            
-            Cliente cliente = dao.consultarCliente();
-
+            btmNovoActionPerformed(evt);
+            ClienteDao dao = new ClienteDao();
+            Cliente cliente = dao.ultimoRegistro();
             exibirCliente(cliente);
-            //contId = lista.size() - 1;
+            
             btmAnterior.setEnabled(true);
             btmProximo.setEnabled(true);
         }catch(Exception e){
@@ -566,11 +550,10 @@ public class FrmCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btmUltimoActionPerformed
   
     private void btmAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAnteriorActionPerformed
-        try{
-            //contId--;
-            ClienteDao dao;
-            dao = new ClienteDao();
-            Cliente cliente = dao.consultarCliente();
+         try{
+             btmNovoActionPerformed(evt);
+            ClienteDao dao = new ClienteDao();            
+            Cliente cliente = dao.anteriorRegistro();
             exibirCliente(cliente);
                         
         }catch(Exception e){
@@ -580,13 +563,11 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAlterarActionPerformed
         try{
-            ClienteDao dao;
-            dao = new ClienteDao();
+            ClienteDao dao = new ClienteDao();
             Cliente cliente = new Cliente();
             cliente.setCodigo(Integer.parseInt(txtCodigo.getText()));
-            preencherCliente(cliente);
+            preencherCliente(cliente);            
             
-            dao = new ClienteDao();
             dao.alterarCliente(cliente);
             JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");        
         }catch(Exception e){
@@ -596,21 +577,16 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
         try{
+            ClienteDao dao = new ClienteDao();
             Cliente obj = new Cliente();
-            obj.setCodigo(Integer.parseInt(txtCodigo.getText()));
+            obj.setCodigo(Integer.parseInt(txtCodigo.getText()));           
             
-            dao = new ClienteDao();
-            dao.excluirCliente(obj);
-            
+            dao.excluirCliente(obj);            
             JOptionPane.showMessageDialog(null, "Dados excluidos com sucesso!");
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao Excluir o Produto");
         }
     }//GEN-LAST:event_btmExcluirActionPerformed
-
-    private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
-         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCelularActionPerformed
 
     /**
      * @param args the command line arguments
