@@ -7,6 +7,7 @@ package GUI;
 
 import dao.ClienteDao;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -27,6 +28,8 @@ public class FrmCliente extends javax.swing.JDialog {
 
     /**
      * Creates new form Cliente
+     * @param parent
+     * @param modal
      */
     public FrmCliente(java.awt.Frame parent, boolean modal) {    
         super(parent, modal);        
@@ -358,13 +361,12 @@ public class FrmCliente extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(barraRolagem)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblComandos)
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -489,28 +491,24 @@ public class FrmCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_comboEstadoActionPerformed
 
-    private void btmSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSalvarActionPerformed
-        try{            
-            Cliente cliente = new Cliente();
-            preencherCliente(cliente);     
-           
-            dao.cadastrarCliente(cliente);
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado com Sucesso!");
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Cliente!");
-        }
-    }//GEN-LAST:event_btmSalvarActionPerformed
-
     private void preencherCliente(Cliente cliente) {
         cliente.setNome( txtNome.getText() );
         cliente.setEmail( txtEmail.getText() );
-        cliente.setTelefone( (String) txtTelefone.getValue() );
-        cliente.setCelular( (String) txtCelular.getValue() );
+        
+        String telefone = txtTelefone.getText().replace("(", "").replace(")", "").replace("-", "");       
+        cliente.setTelefone(telefone);
+        
+        String celular = txtCelular.getText().replace("(", "").replace(")", "").replace("-", "");
+        cliente.setCelular(celular);
+        
         cliente.setRua( txtRua.getText() );
         cliente.setNumero( txtNumero.getText() );
         cliente.setComplento( txtComplemento.getText() );
         cliente.setBairro( txtBairro.getText() );
-        cliente.setCep( (String) txtCep.getValue() );
+        
+        String cep = txtCep.getText().replace(".", "").replace("-", "");
+        cliente.setCep(cep);
+        
         cliente.setEstado( String.valueOf(comboEstado.getSelectedItem()) );
         cliente.setCidade( String.valueOf( comboCidade.getSelectedItem() ) );
     }    
@@ -546,7 +544,7 @@ public class FrmCliente extends javax.swing.JDialog {
     }
 
     private void btmUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmUltimoActionPerformed
-        try{
+         try{
             index = clientes.size() - 1;
             clientes = dao.listarCliente();
             Cliente cliente = clientes.get(index);
@@ -573,8 +571,22 @@ public class FrmCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btmAnteriorActionPerformed
 
+    private void btmSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSalvarActionPerformed
+        try{
+            dao = new ClienteDao();
+            Cliente cliente = new Cliente();
+            preencherCliente(cliente);     
+           
+            dao.cadastrarCliente(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com Sucesso!");
+        }catch(HeadlessException e){
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Cliente!");
+        }
+    }//GEN-LAST:event_btmSalvarActionPerformed
+
     private void btmAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAlterarActionPerformed
-        try{            
+        try{ 
+            dao = new ClienteDao();
             Cliente cliente = new Cliente();
             cliente.setCodigo(Integer.parseInt(txtCodigo.getText()));
             preencherCliente(cliente);
@@ -582,7 +594,7 @@ public class FrmCliente extends javax.swing.JDialog {
             dao.alterarCliente(cliente);
             
             JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");        
-        }catch(Exception e){
+        }catch(HeadlessException | NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Erro ao alterar cliente!");
         }
     }//GEN-LAST:event_btmAlterarActionPerformed
@@ -595,7 +607,7 @@ public class FrmCliente extends javax.swing.JDialog {
             dao = new ClienteDao();
             dao.excluirCliente(obj);            
             JOptionPane.showMessageDialog(null, "Dados excluidos com sucesso!");
-        }catch(Exception e){
+        }catch(HeadlessException | NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Erro ao Excluir o Produto");
         }
     }//GEN-LAST:event_btmExcluirActionPerformed

@@ -184,7 +184,7 @@ public class FrmLogin extends javax.swing.JDialog {
     private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
 
-private void alterarTema(){
+    private void alterarTema(){
         try {
             PlasticLookAndFeel.setPlasticTheme(new ExperienceRoyale());
             try {

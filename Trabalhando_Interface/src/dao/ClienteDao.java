@@ -9,12 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import jdbc.ConectionFactory;
 import model.Cliente;
-import model.Produto;
 
 /**
  *
@@ -34,26 +32,25 @@ public class ClienteDao {
             List<Cliente> lista = new ArrayList<Cliente>();
             String Sql = "SELECT * FROM CLIENTE";
             PreparedStatement stmt = conecta.prepareStatement(Sql);
-            ResultSet rs = stmt.executeQuery();
+                ResultSet rs = stmt.executeQuery();
+                
+                while(rs.next()){
+                    Cliente cliente = new Cliente();
+                    cliente.setCodigo(rs.getInt("cli_codigo") );
+                    cliente.setNome( rs.getString("cli_nome") );
+                    cliente.setEmail( rs.getString("cli_email") );
+                    cliente.setTelefone( rs.getString("cli_telefone") );
+                    cliente.setCelular( rs.getString("cli_celular") );
+                    cliente.setRua( rs.getString("cli_rua") );
+                    cliente.setNumero( rs.getString("cli_numero") );
+                    cliente.setComplento( rs.getString("cli_complemento") );
+                    cliente.setBairro( rs.getString("cli_bairro") );
+                    cliente.setCep( rs.getString("cli_cep") );
+                    cliente.setEstado( rs.getString("cli_estado") );
+                    cliente.setCidade( rs.getString("cli_cidade") );
+                    lista.add(cliente);
+                }
             
-            while(rs.next()){
-                Cliente cliente = new Cliente();
-                cliente.setCodigo(rs.getInt("cli_codigo") );
-                cliente.setNome( rs.getString("cli_nome") ); 
-                cliente.setEmail( rs.getString("cli_email") );
-                cliente.setTelefone( rs.getString("cli_telefone") );
-                cliente.setCelular( rs.getString("cli_celular") );
-                cliente.setRua( rs.getString("cli_rua") );
-                cliente.setNumero( rs.getString("cli_numero") );
-                cliente.setComplento( rs.getString("cli_complemento") );
-                cliente.setBairro( rs.getString("cli_bairro") );
-                cliente.setCep( rs.getString("cli_cep") );
-                cliente.setEstado( rs.getString("cli_estado") );
-                cliente.setCidade( rs.getString("cli_cidade") );                
-                lista.add(cliente);
-            }
-            
-            stmt.close();
             return lista;
             
         }catch(SQLException erro){

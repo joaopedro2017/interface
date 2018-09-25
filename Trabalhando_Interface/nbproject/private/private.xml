@@ -5,7 +5,7 @@
             <url>src/GUI/FrmCliente.java</url>
             <bookmark id="1">
                 <name/>
-                <line>500</line>
+                <line>494</line>
                 <key/>
             </bookmark>
         </file>
@@ -13,12 +13,15 @@
             <url>src/dao/ClienteDao.java</url>
             <bookmark id="2">
                 <name/>
-                <line>55</line>
+                <line>86</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/JohnPeter/Desktop/Git/interface/Trabalhando_Interface/src/dao/ClienteDao.java</file>
+            <file>file:/C:/Users/JohnPeter/Desktop/Git/interface/Trabalhando_Interface/src/GUI/FrmCliente.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -8,7 +8,6 @@ package GUI;
 import dao.ProdutoDao;
 import java.awt.Color;
 import java.awt.HeadlessException;
-import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
