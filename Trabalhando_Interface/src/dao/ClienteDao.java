@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jdbc.ConectionFactory;
 import model.Cliente;
+import model.Produto;
 
 /**
  *
@@ -26,6 +27,38 @@ public class ClienteDao {
 
     public ClienteDao() {
         this.conecta = new ConectionFactory().conecta();
+    }
+    
+    public List<Cliente>listarCliente(){        
+        try{            
+            List<Cliente> lista = new ArrayList<Cliente>();
+            String Sql = "SELECT * FROM CLIENTE";
+            PreparedStatement stmt = conecta.prepareStatement(Sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Cliente cliente = new Cliente();
+                cliente.setCodigo(rs.getInt("cli_codigo") );
+                cliente.setNome( rs.getString("cli_nome") ); 
+                cliente.setEmail( rs.getString("cli_email") );
+                cliente.setTelefone( rs.getString("cli_telefone") );
+                cliente.setCelular( rs.getString("cli_celular") );
+                cliente.setRua( rs.getString("cli_rua") );
+                cliente.setNumero( rs.getString("cli_numero") );
+                cliente.setComplento( rs.getString("cli_complemento") );
+                cliente.setBairro( rs.getString("cli_bairro") );
+                cliente.setCep( rs.getString("cli_cep") );
+                cliente.setEstado( rs.getString("cli_estado") );
+                cliente.setCidade( rs.getString("cli_cidade") );                
+                lista.add(cliente);
+            }
+            
+            stmt.close();
+            return lista;
+            
+        }catch(SQLException erro){
+            throw new RuntimeException(erro);            
+        }
     }
     
     public void cadastrarCliente(Cliente obj){
@@ -54,26 +87,7 @@ public class ClienteDao {
             throw new RuntimeException("Erro ao inserir cliente!");
         }    
     }
-    
-    private Cliente carregaDados(ResultSet rs, Statement stmt) throws SQLException {
-        Cliente cliente = new Cliente();
-        cliente.setCodigo(rs.getInt("cli_codigo") );
-        cliente.setNome( rs.getString("cli_nome") );
-        cliente.setEmail( rs.getString("cli_email") );
-        cliente.setTelefone( rs.getString("cli_telefone") );
-        cliente.setCelular( rs.getString("cli_celular") );
-        cliente.setRua( rs.getString("cli_rua") );
-        cliente.setNumero( rs.getString("cli_numero") );
-        cliente.setComplento( rs.getString("cli_complemento") );
-        cliente.setBairro( rs.getString("cli_bairro") );
-        cliente.setCep( rs.getString("cli_cep") );
-        cliente.setEstado( rs.getString("cli_estado") );
-        cliente.setCidade( rs.getString("cli_cidade") );
-        
-        stmt.close();
-        return cliente;
-    }
-    
+         
     public void alterarCliente(Cliente obj){
         try{
             String cmdsql = "update cliente set cli_nome=?, cli_email=?, cli_telefone=?, cli_celular=?, cli_rua=?, "+
@@ -114,69 +128,6 @@ public class ClienteDao {
         }catch(SQLException erro){
             throw new RuntimeException(erro);
         }
-    }
-    
-    public Cliente primeiroRegistro() {                //METODO QUE CARREGA O ULTIMO REGISTRO DO BD
-        Cliente cliente = null;
-        try {
-            String Sql = "select * from cliente";
-            Statement stmt = conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);           
-            ResultSet rs = stmt.executeQuery( Sql);
-            rs.first();
-            
-            atual = rs.getConcurrency();
-            cliente = carregaDados(rs, stmt);
-        } catch (Exception e2) {
-            System.out.println("ERRO: "+e2.getMessage());
-        }  
-        return cliente;
-    }
-    public Cliente anteriorRegistro() {                //METODO QUE CARREGA O ULTIMO REGISTRO DO BD
-        Cliente cliente = null;
-        try {
-            String Sql = "select * from cliente";            
-            Statement stmt = conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
-            ResultSet rs = stmt.executeQuery( Sql);
-            
-            rs.clearWarnings();
-            if(!rs.first()){
-                rs.previous();
-            }
-            
-            cliente = carregaDados(rs, stmt);
-        } catch (Exception e2) {
-            System.out.println("ERRO: "+e2.getMessage());
-        } 
-        return cliente;
-    }
-    public Cliente proximoRegistro() {                //METODO QUE CARREGA O PROXIMO REGISTRO DO EM RELACAO A QUAL SE ESTA NO BD
-        Cliente cliente = null;
-        try {
-            String Sql = "select * from cliente";
-            Statement stmt = conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);           
-            ResultSet rs = stmt.executeQuery( Sql);
-            
-            if(!rs.isLast()){
-                rs.next();
-            }
-            cliente = carregaDados(rs, stmt);        
-        } catch (Exception e2) {
-            System.out.println("ERRO" + e2.getMessage());
-        } 
-        return cliente;
-    }
-    public Cliente ultimoRegistro() {                //METODO QUE CARREGA O ULTIMO REGISTRO DO BD
-        Cliente cliente = null;
-        try {
-            String Sql = "select * from cliente";
-            Statement stmt = conecta.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);           
-            ResultSet rs = stmt.executeQuery( Sql);
-            rs.last();
-            cliente = carregaDados(rs, stmt);
-        } catch (Exception e2) {
-            System.out.println("ERRO: "+e2.getMessage());
-        }  
-        return cliente;
     }
     
 }

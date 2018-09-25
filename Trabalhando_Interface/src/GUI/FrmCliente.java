@@ -7,6 +7,8 @@ package GUI;
 
 import dao.ClienteDao;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Cliente;
@@ -18,13 +20,19 @@ import model.Cidade;
  * @author alunoces
  */
 public class FrmCliente extends javax.swing.JDialog {
+    
+    private ClienteDao dao;
+    private List<Cliente> clientes;
+    private int index;
 
     /**
      * Creates new form Cliente
      */
     public FrmCliente(java.awt.Frame parent, boolean modal) {    
         super(parent, modal);        
-        initComponents();        
+        initComponents(); 
+        dao = new ClienteDao();
+        clientes = new ArrayList<Cliente>();
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.white);       
     }
@@ -378,14 +386,17 @@ public class FrmCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmProximoActionPerformed
-        try{ 
-            btmNovoActionPerformed(evt);
-            ClienteDao dao = new ClienteDao();
-            Cliente cliente = dao.proximoRegistro();
-            exibirCliente(cliente);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Último Cliente!");
-        }        
+        if(index < clientes.size() ){
+            try{
+                index++;
+                            
+                Cliente cliente = clientes.get(index);
+                exibirCliente(cliente);
+
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Ultimo Cliente!");
+            }
+        }      
     }//GEN-LAST:event_btmProximoActionPerformed
 
     private void btmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSairActionPerformed
@@ -479,11 +490,10 @@ public class FrmCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_comboEstadoActionPerformed
 
     private void btmSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSalvarActionPerformed
-        try{
-            ClienteDao dao = new ClienteDao();
+        try{            
             Cliente cliente = new Cliente();
-            preencherCliente(cliente);           
-                    
+            preencherCliente(cliente);     
+           
             dao.cadastrarCliente(cliente);
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com Sucesso!");
         }catch(Exception e){
@@ -507,9 +517,9 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmPrimeiroActionPerformed
          try{ 
-            btmNovoActionPerformed(evt);
-            ClienteDao dao = new ClienteDao();
-            Cliente cliente = dao.primeiroRegistro();
+            index = 0;
+            clientes = dao.listarCliente();
+            Cliente cliente = clientes.get(index);
             exibirCliente(cliente);             
             
             btmProximo.setEnabled(true);
@@ -537,9 +547,9 @@ public class FrmCliente extends javax.swing.JDialog {
 
     private void btmUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmUltimoActionPerformed
         try{
-            btmNovoActionPerformed(evt);
-            ClienteDao dao = new ClienteDao();
-            Cliente cliente = dao.ultimoRegistro();
+            index = clientes.size() - 1;
+            clientes = dao.listarCliente();
+            Cliente cliente = clientes.get(index);
             exibirCliente(cliente);
             
             btmAnterior.setEnabled(true);
@@ -550,25 +560,27 @@ public class FrmCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btmUltimoActionPerformed
   
     private void btmAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAnteriorActionPerformed
-         try{
-             btmNovoActionPerformed(evt);
-            ClienteDao dao = new ClienteDao();            
-            Cliente cliente = dao.anteriorRegistro();
-            exibirCliente(cliente);
-                        
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Primeiro Cliente!");
+        if(index > -1 ){
+            try{
+                index--;
+                            
+                Cliente cliente = clientes.get(index);
+                exibirCliente(cliente);
+
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Primeiro Cliente!");
+            }
         }
     }//GEN-LAST:event_btmAnteriorActionPerformed
 
     private void btmAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAlterarActionPerformed
-        try{
-            ClienteDao dao = new ClienteDao();
+        try{            
             Cliente cliente = new Cliente();
             cliente.setCodigo(Integer.parseInt(txtCodigo.getText()));
-            preencherCliente(cliente);            
+            preencherCliente(cliente);
             
             dao.alterarCliente(cliente);
+            
             JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");        
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao alterar cliente!");
@@ -576,11 +588,11 @@ public class FrmCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btmAlterarActionPerformed
 
     private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
-        try{
-            ClienteDao dao = new ClienteDao();
+        try{            
             Cliente obj = new Cliente();
             obj.setCodigo(Integer.parseInt(txtCodigo.getText()));           
             
+            dao = new ClienteDao();
             dao.excluirCliente(obj);            
             JOptionPane.showMessageDialog(null, "Dados excluidos com sucesso!");
         }catch(Exception e){
