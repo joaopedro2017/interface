@@ -53,11 +53,11 @@
                               <Component id="btmProximo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btmUltimo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="btmSair" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="lblComandos" min="-2" max="-2" attributes="0"/>
@@ -88,12 +88,14 @@
                           <Component id="btmNovo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btmPrimeiro" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btmAnterior" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btmUltimo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btmProximo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btmSair" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btmPrimeiro" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btmAnterior" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btmUltimo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btmProximo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="btmSair" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   </Group>
@@ -354,11 +356,12 @@
         <Component class="javax.swing.JComboBox" name="comboEstado">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="MG"/>
-                <StringItem index="1" value="SP"/>
-                <StringItem index="2" value="RJ"/>
-                <StringItem index="3" value="BA"/>
+              <StringArray count="5">
+                <StringItem index="0" value="Selecione o Estado"/>
+                <StringItem index="1" value="MG"/>
+                <StringItem index="2" value="SP"/>
+                <StringItem index="3" value="RJ"/>
+                <StringItem index="4" value="BA"/>
               </StringArray>
             </Property>
           </Properties>
@@ -373,7 +376,7 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="1">
-                <StringItem index="0" value="Cidade"/>
+                <StringItem index="0" value="Selecione a Cidade"/>
               </StringArray>
             </Property>
           </Properties>
@@ -472,8 +475,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="btmPrimeiro">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/icones/previous-4-icon.png"/>
+        </Property>
         <Property name="mnemonic" type="int" value="60"/>
-        <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
         <Property name="toolTipText" type="java.lang.String" value="Primeiro"/>
       </Properties>
       <Events>
@@ -482,7 +487,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btmAnterior">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/icones/previous-3-icon.png"/>
+        </Property>
         <Property name="toolTipText" type="java.lang.String" value="Anterior"/>
       </Properties>
       <Events>
@@ -491,7 +498,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btmProximo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&gt;"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/icones/next-4-icon.png"/>
+        </Property>
         <Property name="toolTipText" type="java.lang.String" value="Pr&#xf3;ximo"/>
       </Properties>
       <Events>
@@ -500,8 +509,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="btmUltimo">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/icones/next-6-icon.png"/>
+        </Property>
         <Property name="mnemonic" type="int" value="62"/>
-        <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
         <Property name="toolTipText" type="java.lang.String" value="&#xda;ltimo"/>
       </Properties>
       <Events>

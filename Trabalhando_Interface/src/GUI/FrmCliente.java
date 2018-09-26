@@ -156,14 +156,14 @@ public class FrmCliente extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MG", "SP", "RJ", "BA" }));
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Estado", "MG", "SP", "RJ", "BA" }));
         comboEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEstadoActionPerformed(evt);
             }
         });
 
-        comboCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cidade" }));
+        comboCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Cidade" }));
 
         jLabel1.setText("Estado:");
 
@@ -265,8 +265,8 @@ public class FrmCliente extends javax.swing.JDialog {
             }
         });
 
+        btmPrimeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/previous-4-icon.png"))); // NOI18N
         btmPrimeiro.setMnemonic('<');
-        btmPrimeiro.setText("<<");
         btmPrimeiro.setToolTipText("Primeiro");
         btmPrimeiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,7 +274,7 @@ public class FrmCliente extends javax.swing.JDialog {
             }
         });
 
-        btmAnterior.setText("<");
+        btmAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/previous-3-icon.png"))); // NOI18N
         btmAnterior.setToolTipText("Anterior");
         btmAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,7 +282,7 @@ public class FrmCliente extends javax.swing.JDialog {
             }
         });
 
-        btmProximo.setText(">");
+        btmProximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/next-4-icon.png"))); // NOI18N
         btmProximo.setToolTipText("Próximo");
         btmProximo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,8 +290,8 @@ public class FrmCliente extends javax.swing.JDialog {
             }
         });
 
+        btmUltimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/next-6-icon.png"))); // NOI18N
         btmUltimo.setMnemonic('>');
-        btmUltimo.setText(">>");
         btmUltimo.setToolTipText("Último");
         btmUltimo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -349,9 +349,9 @@ public class FrmCliente extends javax.swing.JDialog {
                                 .addComponent(btmProximo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btmUltimo)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btmSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -365,7 +365,7 @@ public class FrmCliente extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblComandos)
                         .addGap(48, 48, 48)
@@ -375,12 +375,13 @@ public class FrmCliente extends javax.swing.JDialog {
                             .addComponent(btmExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btmNovo))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btmPrimeiro)
-                            .addComponent(btmAnterior)
-                            .addComponent(btmUltimo)
-                            .addComponent(btmProximo)
-                            .addComponent(btmSair))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btmPrimeiro)
+                                .addComponent(btmAnterior)
+                                .addComponent(btmUltimo)
+                                .addComponent(btmProximo))
+                            .addComponent(btmSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(63, 63, 63))))
         );
 
@@ -414,22 +415,22 @@ public class FrmCliente extends javax.swing.JDialog {
         txtNome.setText(" ");
         txtEmail.setText(" ");
         txtCodigo.setText(" ");
-        //txtCelular.setText("(##)#####-####");
-        //txtTelefone.setText("(##)####-####");
+        txtCelular.setValue("");
+        txtTelefone.setValue("");
         txtComplemento.setText(" ");
         txtObservacao.setText(" ");
         txtRua.setText(" ");
         txtNumero.setText(" ");
         txtBairro.setText(" ");
-        txtCep.setText(" ");
+        txtCep.setValue("");
         //btmAnterior.setEnabled(false);
         //btmProximo.setEnabled(false);
-        //comboCidade.setSelectedItem("");
-        //comboEstado.setSelectedItem("");        
+        comboCidade.setSelectedIndex(0);
+        comboEstado.setSelectedIndex(0);
     }//GEN-LAST:event_btmNovoActionPerformed
 
     private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel();        
+        DefaultComboBoxModel modCidade = new DefaultComboBoxModel();        
         String estado = (String) comboEstado.getSelectedItem();      
         
         Cidade c1 = new Cidade();
@@ -446,10 +447,10 @@ public class FrmCliente extends javax.swing.JDialog {
                 c3.setNome("Uberlândia");
                 c3.setId(3);
                 
-                modelo.addElement(c1);
-                modelo.addElement(c2);
-                modelo.addElement(c3);
-                comboCidade.setModel(modelo);                
+                modCidade.addElement(c1);
+                modCidade.addElement(c2);
+                modCidade.addElement(c3);
+                comboCidade.setModel(modCidade);                
                 break;
             case "SP":
                 
@@ -463,10 +464,10 @@ public class FrmCliente extends javax.swing.JDialog {
                 c3.setNome("Santos");
                 c3.setId(3);
                 
-                modelo.addElement(c1);
-                modelo.addElement(c2);
-                modelo.addElement(c3);
-                comboCidade.setModel(modelo);
+                modCidade.addElement(c1);
+                modCidade.addElement(c2);
+                modCidade.addElement(c3);
+                comboCidade.setModel(modCidade);
                 break;
             case "RJ":
                 
@@ -479,14 +480,14 @@ public class FrmCliente extends javax.swing.JDialog {
                 c3.setNome("Cabo Frio");
                 c3.setId(3);
                 
-                modelo.addElement(c1);
-                modelo.addElement(c2);
-                modelo.addElement(c3);                
-                comboCidade.setModel(modelo);
+                modCidade.addElement(c1);
+                modCidade.addElement(c2);
+                modCidade.addElement(c3);                
+                comboCidade.setModel(modCidade);
             break;
             default:
-                modelo.addElement("Selecione o Estado");        
-                comboCidade.setModel(modelo);
+                modCidade.addElement("Selecione o Estado");        
+                comboCidade.setModel(modCidade);
                 break;                
         }
     }//GEN-LAST:event_comboEstadoActionPerformed
@@ -579,7 +580,7 @@ public class FrmCliente extends javax.swing.JDialog {
            
             dao.cadastrarCliente(cliente);
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com Sucesso!");
-        }catch(HeadlessException e){
+        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar Cliente!");
         }
     }//GEN-LAST:event_btmSalvarActionPerformed
@@ -607,6 +608,8 @@ public class FrmCliente extends javax.swing.JDialog {
             dao = new ClienteDao();
             dao.excluirCliente(obj);            
             JOptionPane.showMessageDialog(null, "Dados excluidos com sucesso!");
+            clientes.remove(obj);
+            btmNovoActionPerformed(evt);
         }catch(HeadlessException | NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Erro ao Excluir o Produto");
         }
