@@ -80,6 +80,7 @@ public class FrmCliente extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tela de Cliente");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Cliente", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -385,7 +386,8 @@ public class FrmCliente extends javax.swing.JDialog {
                         .addGap(63, 63, 63))))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(1058, 545));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmProximoActionPerformed
@@ -423,8 +425,7 @@ public class FrmCliente extends javax.swing.JDialog {
         txtNumero.setText(" ");
         txtBairro.setText(" ");
         txtCep.setValue("");
-        //btmAnterior.setEnabled(false);
-        //btmProximo.setEnabled(false);
+        
         comboCidade.setSelectedIndex(0);
         comboEstado.setSelectedIndex(0);
     }//GEN-LAST:event_btmNovoActionPerformed
